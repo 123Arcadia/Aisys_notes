@@ -20,6 +20,9 @@ class Attention(nn.Module):
         self.value = nn.Linear(in_features=word_size, out_features=embed_dim, bias=False)
 
     def self_attention(self, Q: Tensor, K: Tensor, V: Tensor) -> Tensor:
+        """
+        正常的attn计算
+        """
         K_T = torch.transpose(K, 0, 1)
         score = torch.matmul(Q, K_T) / torch.sqrt(self.dim_K)
         score = torch.softmax(score, dim=-1)
